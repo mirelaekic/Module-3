@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon BO</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <style>
+      .bg-myColor {
+        background-color: orange;
+      }
+      .bg-myColor a {
+        color: black;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+<body>
+    <ul class="nav justify-content-left bg-myColor">
+        <li class="nav-item">
+          <a class="nav-link active" href="/M3-D8.html">Amazon</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/M3-D8-BO.html">Backoffice</a>
+        </li>
+      </ul>
+      <div class="container mt-5">
+        <form  onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="col">
+                <h6>Add Name</h6>
+                <input type="text" class="name form-control" placeholder="Add Name">
+              </div>
+              <div class="col">
+                <h6>Add Description</h6>
+                <input type="text" class="description form-control" placeholder="Add Description">
+              </div>
+              <div class="col">
+                <h6>Add Brand</h6>
+                <input type="text" class="brand form-control" placeholder="Add brand">
+              </div>
+              <div class="col">
+                <h6>Add Image</h6>
+                <input type="text" class="image form-control" placeholder="Add image url">
+              </div>
+              <div class="col">
+                <h6>Add Price</h6>
+                <input type="text" class="price form-control" placeholder="Add price">
+              </div>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-warning mb-2 mt-3">Submit</button>
+            </div>
+          </form>
+      </div>
+    
+<script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+    crossorigin="anonymous"
+  ></script>
+  <script>
+const url = "https://striveschool.herokuapp.com/api/product/";
+
+const handleSubmit = (e) => {
+  e.preventDefault(); // preventing the default browser event handling
+  submitEvent();
+};
+
+const submitEvent = async () => {
+  let myProduct = {
+    name: document.querySelector(".name").value,  
+    description: document.querySelector(".description").value, 
+    brand: document.querySelector(".brand").value, 
+    imageUrl: document.querySelector(".image").value, 
+    price:document.querySelector(".price").value, 
+  };
+  console.log(myProduct)
+  try {
+    let response = await fetch("https://striveschool-api.herokuapp.com/api/product/", {
+      body: JSON.stringify(myProduct),
+      method: "POST",
+    headers: {
+      "Content-Type":"application/json",
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjkzZjRiY2RlMTAwMTc2MTZjNmEiLCJpYXQiOjE2MDUxMDU5ODMsImV4cCI6MTYwNjMxNTU4M30.yi9IvcVMeU13rCix70UkYjCjIS6O5DctYgYscMfm_Bw"
+}
+      
+    } 
+    );
+
+    if (response.ok) {
+      alert("Product added successfully");
+      location.assign("M3-D8.html");
+    } else {
+      alert("Something went wrong!");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+  </script>
+</body>
+</html>
